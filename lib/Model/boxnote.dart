@@ -14,7 +14,7 @@ class BoxNote extends StatelessWidget {
         onTap();
       },
       child: Container(
-        margin: EdgeInsets.all(5),
+        // margin: EdgeInsets.all(10),
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           color: Colors.white,

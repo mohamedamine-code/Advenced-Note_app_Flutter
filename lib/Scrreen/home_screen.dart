@@ -10,26 +10,28 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Image.asset("assets/download (8).jpeg",width: MediaQuery.of(context).size.width,height:  MediaQuery.of(context).size.height,fit: BoxFit.cover,),
-            Column(
+      body: Stack(
+        children: [
+          Image.asset("assets/download (8).jpeg",width: MediaQuery.of(context).size.width , height:MediaQuery.of(context).size.height,fit: BoxFit.cover,),
+          SafeArea(
+            child: Column(
               // mainAxisSize: MainAxisSize.max,
               children: [
                 _headerApp(),
                 SizedBox(height: 25),
                 _subTitleApp(context),
                 SizedBox(height: 25),
-            
                 Expanded(
-                  child: Container(child: _contentNote()),
+                  child: Container
+                  (
+                    margin: EdgeInsets.symmetric(horizontal: 10),
+                    child: _contentNote()),
                 ),
               ],
             ),
-            
-          ],
-        ),
+          ),
+          
+        ],
       ),
     );
   }
@@ -63,7 +65,7 @@ class HomePage extends StatelessWidget {
       height: 230,
       margin: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(112, 255, 214, 64),
+        color: Colors.amber,
         borderRadius: BorderRadius.circular(15),
       ),
       padding: EdgeInsets.all(10),
