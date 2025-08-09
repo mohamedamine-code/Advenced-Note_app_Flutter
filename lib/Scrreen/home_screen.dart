@@ -12,33 +12,37 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          Image.asset("assets/download (8).jpeg",width: MediaQuery.of(context).size.width , height:MediaQuery.of(context).size.height,fit: BoxFit.cover,),
+          Image.asset(
+            "assets/download (8).jpeg",
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
+            fit: BoxFit.cover,
+          ),
           SafeArea(
             child: Column(
               // mainAxisSize: MainAxisSize.max,
               children: [
-                _headerApp(),
+                _headerApp(context),
                 SizedBox(height: 25),
                 _subTitleApp(context),
                 SizedBox(height: 25),
                 Expanded(
-                  child: Container
-                  (
+                  child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 10),
-                    child: _contentNote()),
+                    child: _contentNote(),
+                  ),
                 ),
               ],
             ),
           ),
-          
         ],
       ),
     );
   }
 
-  Widget _headerApp() {
+  Widget _headerApp(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal:10.0),
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -50,9 +54,36 @@ class HomePage extends StatelessWidget {
           // SizedBox(width: 70,),
           Row(
             children: [
-              Icon(Icons.search,size: 35,color: Colors.black,),
-              SizedBox(width: 10,),
-              Icon(Icons.add,size: 35,color: Colors.black),
+              Icon(Icons.search, size: 35, color: Colors.black),
+              SizedBox(width: 10),
+              IconButton(onPressed: () {
+                //add new ilem when i prssed ok
+                showDialog(context: context, builder: (BuildContext context){
+                  return AlertDialog(
+                    title: TextField(
+                    // controller: _titleController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+
+                      hintText: 'Write your note...',
+                    ),
+                    style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+                    maxLines: 1,
+                  ),
+                  content:  TextField(
+                    
+                    // controller: _titleController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      // hintText: 'Write your note...',
+                    ),
+                    style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+                    maxLines: 3,
+                  ),
+                  
+                  );
+                });
+              },icon:Icon(Icons.add, size: 35, color: Colors.black)),
             ],
           ),
         ],
@@ -127,15 +158,18 @@ class HomePage extends StatelessWidget {
       itemCount: 3,
       itemBuilder: (context, index) {
         Note N = Note(
+          id: 99,
           title: "Design",
-          content: "have 3 think to do keep your mind shrap,have 3 think to do keep your mind shrap,have 3 think to do keep your mind shrap",
+          content:
+              "have 3 think to do keep your mind shrap,have 3 think to do keep your mind shrap,have 3 think to do keep your mind shrap",
         );
         return BoxNote(
           n1: N,
-          onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>Fullpage(
-              n2: N,
-            )));
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => Fullpage(n2: N)),
+            );
           },
         );
       },

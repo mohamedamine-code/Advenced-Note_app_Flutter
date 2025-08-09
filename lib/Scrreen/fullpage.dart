@@ -8,6 +8,9 @@ class Fullpage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _titleController = TextEditingController(text:n2.title );
+    final TextEditingController _contentController = TextEditingController(text:n2.content );
+
     return Scaffold(
       body: Stack(
         children: [
@@ -37,12 +40,23 @@ class Fullpage extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: 25),
-                  Text(
-                    n2.title,
+                  TextField(
+                    controller: _titleController,
+                    decoration: InputDecoration(
+                      hintText: n2.title
+                    ),
                     style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
                   ),
                   SizedBox(height: 25),
-                  Text(n2.content, style: TextStyle(fontSize: 23)),
+                  TextField(
+                    controller: _contentController,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                  hintText: 'Write your note...',
+                  // hintMaxLines: 10,
+                  ), style: TextStyle(fontSize: 23),
+                  maxLines: null,
+                  ),
                 ],
               ),
             ),
