@@ -26,7 +26,9 @@ class BoxNote extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(n1.title,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: const Color.fromARGB(107, 0, 0, 0)),),
+                Expanded(
+                  // width: double.infinity,
+                  child: Text(n1.title,overflow: TextOverflow.ellipsis,style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: const Color.fromARGB(107, 0, 0, 0)),)),
                 Icon(FontAwesomeIcons.thumbtack,color: Colors.black,),
               ],
             ),

@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:note_app/Model/boxnote.dart';
 import 'package:note_app/Model/note.dart';
+import 'package:note_app/Model/note_provider.dart';
 import 'package:note_app/Scrreen/fullpage.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController _titleController =TextEditingController();
+    final TextEditingController _contentController =TextEditingController();
     return Scaffold(
+      
       body: Stack(
         children: [
           Image.asset(
@@ -22,14 +27,14 @@ class HomePage extends StatelessWidget {
             child: Column(
               // mainAxisSize: MainAxisSize.max,
               children: [
-                _headerApp(context),
+                _headerApp(context,_titleController,_contentController),
                 SizedBox(height: 25),
                 _subTitleApp(context),
                 SizedBox(height: 25),
                 Expanded(
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: 10),
-                    child: _contentNote(),
+                    child: _contentNote(context),
                   ),
                 ),
               ],
@@ -40,7 +45,7 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _headerApp(BuildContext context) {
+  Widget _headerApp(BuildContext context,TextEditingController _contentController ,TextEditingController _titleController) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: Row(
@@ -60,27 +65,36 @@ class HomePage extends StatelessWidget {
                 //add new ilem when i prssed ok
                 showDialog(context: context, builder: (BuildContext context){
                   return AlertDialog(
+                    contentPadding: EdgeInsets.all(20),
                     title: TextField(
-                    // controller: _titleController,
+                    controller: _titleController,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-
-                      hintText: 'Write your note...',
+                      hintText: 'Title',
                     ),
-                    style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     maxLines: 1,
                   ),
-                  content:  TextField(
-                    
-                    // controller: _titleController,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      // hintText: 'Write your note...',
+                    content:  SizedBox(
+                      width: 900,
+                      child: TextField(
+                      controller: _contentController,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: 'Write your note...',
+                      ),
+                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                      maxLines: 3,
+                      ),
                     ),
-                    style: TextStyle(fontSize: 45, fontWeight: FontWeight.bold),
-                    maxLines: 3,
-                  ),
-                  
+                    actions: [
+                      TextButton(onPressed: (){
+                        context.read<NoteProvider>().addItem(_titleController.text, _contentController.text);
+                      }, child: Text("Add",style: TextStyle(color: Colors.black,fontSize: 17),)),
+                      TextButton(onPressed: (){
+                        Navigator.pop(context);
+                      }, child: Text("Cancel",style: TextStyle(color: Colors.black,fontSize: 17))),
+                    ],
                   );
                 });
               },icon:Icon(Icons.add, size: 35, color: Colors.black)),
@@ -148,27 +162,23 @@ class HomePage extends StatelessWidget {
     );
   }
 
-  Widget _contentNote() {
+  Widget _contentNote(BuildContext context) {
+    final  ourNotes = context.watch<NoteProvider>().getLocat_note;
     return GridView.builder(
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,
       ),
-      itemCount: 3,
+      itemCount: ourNotes.length,
       itemBuilder: (context, index) {
-        Note N = Note(
-          id: 99,
-          title: "Design",
-          content:
-              "have 3 think to do keep your mind shrap,have 3 think to do keep your mind shrap,have 3 think to do keep your mind shrap",
-        );
+        
         return BoxNote(
-          n1: N,
+          n1: ourNotes[index],
           onTap: () {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => Fullpage(n2: N)),
+              MaterialPageRoute(builder: (context) => Fullpage(n2: ourNotes[index])),
             );
           },
         );
