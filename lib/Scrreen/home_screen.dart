@@ -11,17 +11,23 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Column(
-          // mainAxisSize: MainAxisSize.max,
+        child: Stack(
           children: [
-            _headerApp(),
-            SizedBox(height: 25),
-            _subTitleApp(context),
-            SizedBox(height: 25),
-        
-            Expanded(
-              child: Container(color: Colors.red, child: _contentNote()),
+            Image.asset("assets/download (8).jpeg",width: MediaQuery.of(context).size.width,height:  MediaQuery.of(context).size.height,fit: BoxFit.cover,),
+            Column(
+              // mainAxisSize: MainAxisSize.max,
+              children: [
+                _headerApp(),
+                SizedBox(height: 25),
+                _subTitleApp(context),
+                SizedBox(height: 25),
+            
+                Expanded(
+                  child: Container(child: _contentNote()),
+                ),
+              ],
             ),
+            
           ],
         ),
       ),

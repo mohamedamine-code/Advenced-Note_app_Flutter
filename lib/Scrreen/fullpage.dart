@@ -24,9 +24,13 @@ class Fullpage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(15)
                     ),
                     // padding: const EdgeInsets.only(right: 10.0),
-                    child: IconButton(onPressed: (){},icon:Icon(Icons.arrow_back, size: 35, color: Colors.black)),
+                    child: IconButton(onPressed: (){
+                      Navigator.pop(context);
+                    },icon:Icon(Icons.arrow_back, size: 35, color: Colors.black)),
                   ),
-                  IconButton(onPressed: (){},icon:Icon(FontAwesomeIcons.bookmark, size: 35, color: Colors.black)),
+                  IconButton(onPressed: (){
+
+                  },icon:Icon(FontAwesomeIcons.bookmark, size: 35, color: Colors.black)),
                 ],
               ),
               SizedBox(height: 25),
