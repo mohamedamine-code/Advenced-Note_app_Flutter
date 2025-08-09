@@ -125,7 +125,9 @@ class HomePage extends StatelessWidget {
         return BoxNote(
           n1: N,
           onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>Fullpage()));
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>Fullpage(
+              n2: N,
+            )));
           },
         );
       },
